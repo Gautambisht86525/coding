@@ -2,71 +2,61 @@
 #include <vector>
 using namespace std;
 
-int binarySearch(vector<int>& arr, int key, bool findFirst)
+void findSequence(vector<int> &arr)
 {
-    int low = 0;
-    int high = arr.size() - 1;
-    int ans = -1;
+    int n = arr.size();
+    bool found = false;
 
-    while(low <= high)
+    for(int k = n - 1; k >= 0; k--)
     {
-        int mid = (low + high) / 2;
+        int i = 0;
+        int j = k - 1;
 
-        if(arr[mid] == key)
+        while(i < j)
         {
-            ans = mid;
+            int sum = arr[i] + arr[j];
 
-            if(findFirst)
-                high = mid - 1;   // move left
+            if(sum == arr[k])
+            {
+                cout << i << "," << j << "," << k << endl;
+                found = true;
+                return;
+            }
+            else if(sum < arr[k])
+            {
+                i++;
+            }
             else
-                low = mid + 1;    // move right
-        }
-        else if(arr[mid] < key)
-        {
-            low = mid + 1;
-        }
-        else
-        {
-            high = mid - 1;
+            {
+                j--;
+            }
         }
     }
 
-    return ans;
+    if(!found)
+    {
+        cout << "No sequence found" << endl;
+    }
 }
 
 int main()
 {
-    int n;
-    cout << "Enter number of elements: ";
-    cin >> n;
+    int T;
+    cin >> T;
 
-    vector<int> arr(n);
-
-    cout << "Enter sorted array elements:\n";
-    for(int i = 0; i < n; i++)
+    while(T--)
     {
-        cin >> arr[i];
-    }
+        int n;
+        cin >> n;
 
-    int key;
-    cout << "Enter key: ";
-    cin >> key;
+        vector<int> arr(n);
 
-    int first = binarySearch(arr, key, true);
-    int last = binarySearch(arr, key, false);
+        for(int i = 0; i < n; i++)
+        {
+            cin >> arr[i];
+        }
 
-    if(first == -1)
-    {
-        cout << "Key not present in array";
-    }
-    else
-    {
-        int copies = last - first + 1;
-
-        cout << "Key found\n";
-        cout << "First Occurrence Index = " << first << endl;
-        cout << "Last Occurrence Index = " << last << endl;
-        cout << "Number of Copies = " << copies << endl;
+        findSequence(arr);
     }
 
     return 0;
