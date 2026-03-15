@@ -1,63 +1,53 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-void findSequence(vector<int> &arr)
-{
-    int n = arr.size();
-    bool found = false;
+void occurrence(vector<int>&arr,int n){
+    bool found=false;
+    for(int i=n-1;i>=2 && !found;i++){
+        int st=0;
+        int end=i-1;
 
-    for(int k = n - 1; k >= 0; k--)
-    {
-        int i = 0;
-        int j = k - 1;
-
-        while(i < j)
-        {
-            int sum = arr[i] + arr[j];
-
-            if(sum == arr[k])
-            {
-                cout << i << "," << j << "," << k << endl;
-                found = true;
-                return;
+        while(st<=end){
+            int sum=arr[st]+arr[end];
+            if(sum==arr[i]){
+                cout<<st<<end<<i<<endl;
+                break;
             }
-            else if(sum < arr[k])
-            {
-                i++;
+            else if(sum<arr[i]){
+                st++;
             }
-            else
-            {
-                j--;
+            else{
+                end--;
             }
         }
+        if(!found){
+            cout<<"No sequence found"<<endl;
+        }
+        
     }
-
-    if(!found)
-    {
-        cout << "No sequence found" << endl;
-    }
+    
 }
 
-int main()
-{
-    int T;
-    cin >> T;
 
-    while(T--)
-    {
+int main(){
+
+    int T;
+    cin>>T;
+
+    while(T--){
+
         int n;
-        cin >> n;
+        cin>>n;
 
         vector<int> arr(n);
 
-        for(int i = 0; i < n; i++)
-        {
-            cin >> arr[i];
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
+
         }
 
-        findSequence(arr);
+        occurrence(arr,n);
     }
-
     return 0;
 }
