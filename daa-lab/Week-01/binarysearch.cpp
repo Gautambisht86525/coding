@@ -1,45 +1,60 @@
-#include <iostream>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-int binarySearch(int arr[], int n, int target) {
-    int low = 0, high = n - 1;
+int binarysearch(vector<int>&arr,int n,int key){
+    int st=0;
+    int end=n-1;
+    int comparisons=0;
+     
+    while(st<=end){
+        int mid=st+(end-st)/2;
+        comparisons++;
 
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (arr[mid] == target)
+        if(arr[mid]==key){
             return mid;
-        else if (arr[mid] < target)
-            low = mid + 1;
-        else
-            high = mid - 1;
+        }
+        else if(arr[mid]<key){
+            st=mid+1;
+        }
+        else{
+            end=mid-1;
+        }
     }
-    return -1;
+    return -comparisons;
+
 }
 
-int main() {
-    int t;
-    cin >> t;
+int main(){
 
-    while (t--) {
+    int T;
+    cin>>T;
+
+    while(T--){
+
         int n;
-        cin >> n;
+        cin>>n;
 
-        int arr[n];
-        for (int i = 0; i < n; i++) {
-            cin >> arr[i];
+        vector<int> arr(n);
+
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
+
         }
 
-        int target;
-        cin >> target;
+        int key;
+        cin>>key;
 
-        int ans = binarySearch(arr, n, target);
+        int result=binarysearch(arr,n,key);
 
-        if (ans != -1)
-            cout << ans << endl;
-        else
-            cout << -1 << endl;
+        if(result!=-1){
+            cout<<"ELement found at index"<<result<<endl;
+        }
+        else{
+            cout<<"Element not found";
+        }
+
+
     }
-
     return 0;
 }
