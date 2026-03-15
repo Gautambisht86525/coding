@@ -1,72 +1,74 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-int binarySearch(vector<int>& arr, int key, bool findFirst)
-{
-    int low = 0;
-    int high = arr.size() - 1;
-    int ans = -1;
-
-    while(low <= high)
-    {
-        int mid = (low + high) / 2;
-
-        if(arr[mid] == key)
-        {
-            ans = mid;
-
-            if(findFirst)
-                high = mid - 1;
-            else
-                low = mid + 1;
+int firstoccurence(vector<int>&arr,int n,int key){
+    int st=0;
+    int end=n-1;
+    int ans=-1;
+    while(st<=end){
+        int mid=st+(end-st)/2;
+        if(arr[mid]==key){
+            return ans;
+            end=mid-1;
         }
-        else if(arr[mid] < key)
-        {
-            low = mid + 1;
+        else if(arr[mid]<key){
+            st=mid+1;
         }
-        else
-        {
-            high = mid - 1;
+        else{
+            end=mid-1;
         }
     }
-
     return ans;
 }
 
-int main()
-{
-    int T;
-    cin >> T;
+int lastoccurence(vector<int>&arr,int n,int key){
+    int st=0;
+    int end=n-1;
+    int ans=-1;
+    while(st<=end){
+        int mid=st+(end-st)/2;
+        if(arr[mid]==key){
+            return ans;
+            st=mid+1;
+        }
+        else if(arr[mid]<key){
+            st=mid+1;
+        }
+        else{
+            end=mid-1;
+        }
+    }
+    return ans;
+}
 
-    while(T--)
-    {
+int main(){
+    int T;
+    cin>>T;
+
+    while(T--){
+
         int n;
-        cin >> n;
+        cin>>n;
 
         vector<int> arr(n);
 
-        for(int i = 0; i < n; i++)
-        {
-            cin >> arr[i];
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
         }
 
         int key;
-        cin >> key;
+        cin>>key;
 
-        int first = binarySearch(arr, key, true);
-        int last = binarySearch(arr, key, false);
+        int first=firstoccurence(arr,n,key);
 
-        if(first == -1)
-        {
-            cout << "Key not present" << endl;
+        if(first==-1){
+             cout<<"Key not present"<<endl;
         }
-        else
-        {
-            int copies = last - first + 1;
-            cout << key << " - " << copies << endl;
+        else{
+           int last=lastoccurence(arr,n,key);
+            cout<<key<<last-first+1<<endl;
         }
     }
-
     return 0;
 }
