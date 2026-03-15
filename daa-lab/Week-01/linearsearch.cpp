@@ -1,32 +1,38 @@
-#include <iostream>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-int linearSearch(int arr[], int n, int key) {
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == key) {
-            return i;
+int linearSearch(vector<int> &arr,int n,int key){
+int comparisons=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]==key){
+            cout<<"Present"<<comparisons<<endl;
+            return;
         }
+
     }
-    return -1;
+    cout<<"Not present"<<comparisons<<endl;
 }
 
-int main() {
+int main()
+{
     int T;
     cin >> T;
 
-    while (T--) {
+    while(T--)
+    {
         int n;
         cin >> n;
 
-        int arr[n];
-        for (int i = 0; i < n; i++) {
-            cin >> arr[i];
-        }
+        vector<int> a(n);
+
+        for(int i = 0; i < n; i++)
+            cin >> a[i];
 
         int key;
         cin >> key;
 
-        cout << linearSearch(arr, n, key) << endl;
+        linearSearch(a, n, key);
     }
 
     return 0;
