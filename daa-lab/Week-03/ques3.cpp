@@ -1,19 +1,21 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <unordered_map>
 using namespace std;
 
 bool hasDuplicate(vector<int> &a, int n)
 {
-    sort(a.begin(), a.end());   // O(n log n)
+    unordered_map<int, int> mp;
 
-    for(int i = 1; i < n; i++)
+    for(int i = 0; i < n; i++)
     {
-        if(a[i] == a[i - 1])
-            return true;
+        if(mp[a[i]] == 1)
+            return true;        
+
+        mp[a[i]] = 1;
     }
 
-    return false;
+    return false;              
 }
 
 int main()
@@ -32,10 +34,10 @@ int main()
             cin >> a[i];
 
         if(hasDuplicate(a, n))
-            cout << "YES\n";
+            cout << "YES";
         else
-            cout << "NO\n";
-    }
+            cout << "NO";
 
-    return 0;
+        cout << endl;
+    }
 }
