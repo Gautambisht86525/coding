@@ -17,7 +17,7 @@ unordered_map<int,vector<int>> convert_to_list(vector<vector<int>>&adjMat){
 
 bool dfs(int node,unordered_map<int,vector<int>> &adjList,vector<bool> &visited,vector<bool> &path){
     visited[node]=true;
-    visited[node]=true;
+    path[node]=true;
 
     for(auto nbr :adjList[node]){
         if(!visited[node]){
@@ -30,7 +30,7 @@ bool dfs(int node,unordered_map<int,vector<int>> &adjList,vector<bool> &visited,
         }
     }
 
-    path[node]=true;
+    path[node]=false;
     return false;
 }
 
